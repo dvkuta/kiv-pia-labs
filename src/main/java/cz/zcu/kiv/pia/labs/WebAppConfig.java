@@ -1,8 +1,8 @@
 package cz.zcu.kiv.pia.labs;
 
-import cz.zcu.kiv.pia.labs.number.reactive.ConstantReactiveNumberService;
-import cz.zcu.kiv.pia.labs.number.reactive.RandomReactiveNumberService;
-import cz.zcu.kiv.pia.labs.number.reactive.ReactiveNumberService;
+import cz.zcu.kiv.pia.labs.number.ConstantNumberService;
+import cz.zcu.kiv.pia.labs.number.NumberService;
+import cz.zcu.kiv.pia.labs.number.RandomNumberService;
 import org.slf4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -38,12 +38,18 @@ public class WebAppConfig implements WebFluxConfigurer {
     }
 
     @Bean
-    public ReactiveNumberService randomNumberService(RandomGenerator randomGenerator) {
-        return new RandomReactiveNumberService(randomGenerator);
+    public Number getNumber() {
+        return 123;
     }
 
     @Bean
-    public ReactiveNumberService constantNumberService() {
-        return new ConstantReactiveNumberService(666L);
+    public NumberService randomNumberService(RandomGenerator randomGenerator) {
+        return new RandomNumberService(randomGenerator);
+    }
+
+    @Bean
+    @RequestScope
+    public NumberService constantNumberService(RandomGenerator randomGenerator) {
+        return new ConstantNumberService(randomGenerator.nextInt());
     }
 }

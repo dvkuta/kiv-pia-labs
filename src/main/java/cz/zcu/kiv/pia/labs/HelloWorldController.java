@@ -1,7 +1,9 @@
 package cz.zcu.kiv.pia.labs;
 
-import cz.zcu.kiv.pia.labs.number.reactive.ReactiveNumberService;
+import cz.zcu.kiv.pia.labs.number.ConstantNumberService;
+import cz.zcu.kiv.pia.labs.number.NumberService;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,23 +20,30 @@ public class HelloWorldController {
 
     private static final Logger LOG = getLogger(HelloWorldController.class);
 
-    private final ReactiveNumberService numberService;
+    //private final ReactiveNumberService numberService;
 
-    public HelloWorldController(ReactiveNumberService randomNumberService) {
+   /* public HelloWorldController(ReactiveNumberService randomNumberService) {
         this.numberService = randomNumberService;
+    }
+*/
+   private final NumberService numberService;
+
+   private final NumberService constantNumberService;
+
+    public HelloWorldController(@Qualifier("randomNumberService") NumberService numberService, @Qualifier("constantNumberService") NumberService constantNumberService) {
+        this.numberService = numberService;
+        this.constantNumberService = constantNumberService;
     }
 
     @GetMapping(path = "/hello", produces = MediaType.TEXT_HTML_VALUE + "; charset=utf-8")
-    public Mono<String> sayHello(@RequestParam String from) {
+    public Mono<String> sayHello(@RequestParam (name = "foo", required = false) String from) {
         var builder = new StringBuilder("Hello World");
         if (from != null) {
             builder.append(" from ").append(from);
         }
         builder.append("!");
 
-        LOG.info(builder.toString());
-
-        return Mono.just("<h1>" + builder + "</h1>");
+        return Mono.just("<h1>" + builder + " " + numberService.getNumber() + "</h1>");
     }
 
     @GetMapping(path = "/greet/{name}", produces = MediaType.TEXT_HTML_VALUE + "; charset=utf-8")
@@ -42,8 +51,17 @@ public class HelloWorldController {
         return Mono.just("<h1>Hello " + name + "!</h1>");
     }
 
+
+
     @GetMapping("/number")
-    public Mono<String> getRandomNumber() {
-        return numberService.getNumber().map(Number::toString);
+    public String getRandomNumber() {
+        return numberService.getNumber().toString();
     }
+
+    @GetMapping("/constantNumber")
+    public String getConstantNumber() {
+        return constantNumberService.getNumber().toString();
+    }
+
+
 }
