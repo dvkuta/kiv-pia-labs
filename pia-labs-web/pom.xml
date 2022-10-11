@@ -18,6 +18,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.2</version>
+        </dependency>
 
         <dependency>
             <groupId>cz.zcu.kiv.pia</groupId>
@@ -45,6 +50,12 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -67,7 +78,47 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>6.2.0</version>
+                <configuration>
+                    <generatorName>spring</generatorName>
+                    <generateModelTests>false</generateModelTests>
+                    <generateApiTests>false</generateApiTests>
+                    <generateModelDocumentation>false</generateModelDocumentation>
+                    <generateApiDocumentation>false</generateApiDocumentation>
+                    <inputSpec>${project.basedir}/src/main/resources/api.yaml</inputSpec>
+                    <apiPackage>cz.zcu.kiv.pia.labs.chat.rest.api</apiPackage>
+                    <modelPackage>cz.zcu.kiv.pia.labs.chat.rest.model</modelPackage>
+                    <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
+                    <configOptions>
+                        <dateLibrary>java8</dateLibrary>
+                        <interfaceOnly>true</interfaceOnly>
+                        <library>spring-boot</library>
+                        <openApiNullable>false</openApiNullable>
+                        <reactive>false</reactive>
+                        <serializableModel>true</serializableModel>
+                        <skipDefaultInterface>true</skipDefaultInterface>
+                        <singleContentTypes>true</singleContentTypes>
+                        <strictSpec>true</strictSpec>
+                        <validateSpec>true</validateSpec>
+                        <useBeanValidation>false</useBeanValidation>
+                        <useTags>true</useTags>
+                    </configOptions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+
     </build>
 
 </project>

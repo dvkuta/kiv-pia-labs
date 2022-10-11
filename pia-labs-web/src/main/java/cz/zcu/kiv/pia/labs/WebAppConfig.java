@@ -1,8 +1,8 @@
 package cz.zcu.kiv.pia.labs;
 
-import cz.zcu.pia.labs.number.ConstantNumberService;
-import cz.zcu.pia.labs.number.NumberService;
-import cz.zcu.pia.labs.number.RandomNumberService;
+import cz.zcu.kiv.pia.labs.number.ConstantNumberService;
+import cz.zcu.kiv.pia.labs.number.NumberService;
+import cz.zcu.kiv.pia.labs.number.RandomNumberService;
 import org.slf4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

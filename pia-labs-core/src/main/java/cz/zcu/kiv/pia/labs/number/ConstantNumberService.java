@@ -1,8 +1,7 @@
-package cz.zcu.pia.labs.number;
+package cz.zcu.kiv.pia.labs.number;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
