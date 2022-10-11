@@ -1,7 +1,6 @@
 package cz.zcu.kiv.pia.labs;
 
-import cz.zcu.kiv.pia.labs.number.ConstantNumberService;
-import cz.zcu.kiv.pia.labs.number.NumberService;
+import cz.zcu.pia.labs.number.NumberService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;

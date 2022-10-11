@@ -1,6 +1,7 @@
-package cz.zcu.kiv.pia.labs.number;
+package cz.zcu.pia.labs.number;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.random.RandomGenerator;
 
@@ -10,7 +11,7 @@ import static org.slf4j.LoggerFactory.getLogger;
  * Implementation of {@link NumberService} returning random numbers.
  */
 public class RandomNumberService implements NumberService {
-    private static final Logger LOG = getLogger(RandomNumberService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RandomNumberService.class);
     private final RandomGenerator randomGenerator;
 
     public RandomNumberService(RandomGenerator randomGenerator) {

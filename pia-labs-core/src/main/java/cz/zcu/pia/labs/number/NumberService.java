@@ -1,4 +1,4 @@
-package cz.zcu.kiv.pia.labs.number;
+package cz.zcu.pia.labs.number;
 
 public interface NumberService {
     /**

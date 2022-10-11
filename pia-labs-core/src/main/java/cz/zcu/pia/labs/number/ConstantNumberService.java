@@ -1,6 +1,7 @@
-package cz.zcu.kiv.pia.labs.number;
+package cz.zcu.pia.labs.number;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -10,7 +11,7 @@ import static org.slf4j.LoggerFactory.getLogger;
  */
 
 public class ConstantNumberService implements NumberService {
-    private static final Logger LOG = getLogger(ConstantNumberService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConstantNumberService.class);
 
     private final Number number;
 
