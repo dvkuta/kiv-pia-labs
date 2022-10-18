@@ -64,11 +64,63 @@
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.graphql</groupId>
+            <artifactId>spring-graphql</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java-extended-scalars</artifactId>
+            <version>18.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.graphql-java-generator</groupId>
+            <artifactId>graphql-java-common-runtime</artifactId>
+            <version>1.18.7</version>
+        </dependency>
     </dependencies>
 
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
+
+            <plugin>
+                <groupId>com.graphql-java-generator</groupId>
+                <artifactId>graphql-maven-plugin</artifactId>
+                <version>1.18.7</version>
+                <configuration>
+                    <mode>server</mode>
+                    <packageName>cz.zcu.kiv.pia.labs.chat.graphql</packageName>
+                    <schemaFileFolder>${project.basedir}/src/main/resources/graphql</schemaFileFolder>
+                    <!-- The parameters below change the 1.x default behavior. They are set to respect the behavior of the future 2.x versions -->
+                    <copyRuntimeSources>false</copyRuntimeSources>
+                    <generateBatchLoaderEnvironment>true</generateBatchLoaderEnvironment>
+                    <separateUtilityClasses>true</separateUtilityClasses>
+                    <skipGenerationIfSchemaHasNotChanged>true</skipGenerationIfSchemaHasNotChanged>
+                    <customScalars>
+                        <customScalar>
+                            <graphQLTypeName>DateTime</graphQLTypeName>
+                            <javaType>java.time.OffsetDateTime</javaType>
+                            <graphQLScalarTypeStaticField>graphql.scalars.ExtendedScalars.DateTime</graphQLScalarTypeStaticField>
+                        </customScalar>
+                    </customScalars>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generatePojo</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
